@@ -1,18 +1,23 @@
 import React, {Component} from 'react';
 import Header from './layout/Header';
-
+import Todos from './Todos';
 class TodoApp extends Component {
 
   state = {
     todos: [
       {
         id: 1,
-        title: "Setup development environment",
+        title: "Đi học",
         completed: true,
       },
       {
         id: 2,
-        title: "Develop website and add content",
+        title: "Nấu cơm",
+        completed: false,
+      },
+      {
+        id: 3,
+        title: "Đi ngủ",
         completed: false,
       },
     ],
@@ -22,11 +27,7 @@ class TodoApp extends Component {
     return (
       <div>
         <Header />
-        <ul>
-          {this.state.todos.map(todo => (
-            <li key={todo.id}>{todo.title}</li>
-          ))}
-        </ul>
+        <Todos todos={this.state.todos} />
       </div>
     );
   }
