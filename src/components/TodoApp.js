@@ -25,7 +25,7 @@ class TodoApp extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <Header />
         <Todos todos={this.state.todos} />
       </div>
