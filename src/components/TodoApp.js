@@ -5,48 +5,40 @@ import Todos from './Todos';
 import AddTodo from './AddTodo';
 
 class TodoApp extends Component {
-
   state = {
-    todos: [
-      {
-        id: 1,
-        title: "Đi học",
-        completed: true,
-      },
-      {
-        id: 2,
-        title: "Nấu cơm",
-        completed: false,
-      },
-      {
-        id: 3,
-        title: "Đi ngủ",
-        completed: false,
-      },
-    ],
+    todos: [],
   };
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/todos')
-          .then(res => console.log(res.data))
+    const config = {
+      params: {
+        _limit: 10,
+      },
+    };
+    axios
+      .get("https://jsonplaceholder.typicode.com/todos", config)
+      .then(response => {
+        this.setState({
+          todos: response.data
+        })
+      });
   }
-  'hihi'
   handleCheckboxChange = (id) => {
     this.setState({
-      todos: this.state.todos.map(todo => {
-        if(todo.id === id) {
+      todos: this.state.todos.map((todo) => {
+        if (todo.id === id) {
           todo.completed = !todo.completed;
         }
-        return todo
-      })
-    })
-  }
+        return todo;
+      }),
+    });
+  };
   deleteTodo = (id) => {
     this.setState({
-      todos: this.state.todos.filter(todo => {
-        return todo.id !== id
-      })
-    })
-  }
+      todos: this.state.todos.filter((todo) => {
+        return todo.id !== id;
+      }),
+    });
+  };
   addTodo = (title) => {
     const newTodo = {
       id: this.state.todos.length + 1,
@@ -56,15 +48,14 @@ class TodoApp extends Component {
     this.setState({
       todos: [...this.state.todos, newTodo],
     });
-  }
+  };
   render() {
-    
     return (
       <div className="container">
         <Header />
-        <AddTodo addTodo={this.addTodo}/>
-        <Todos 
-          todos={this.state.todos} 
+        <AddTodo addTodo={this.addTodo} />
+        <Todos
+          todos={this.state.todos}
           handleChange={this.handleCheckboxChange}
           deleteTodo={this.deleteTodo}
         />
