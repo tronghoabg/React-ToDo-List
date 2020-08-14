@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import Header from './layout/Header';
 import Todos from './Todos';
 import AddTodo from './AddTodo';
@@ -24,7 +25,11 @@ class TodoApp extends Component {
       },
     ],
   };
-
+  componentDidMount() {
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+          .then(res => console.log(res.data))
+  }
+  'hihi'
   handleCheckboxChange = (id) => {
     this.setState({
       todos: this.state.todos.map(todo => {
